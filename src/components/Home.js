@@ -5,7 +5,7 @@ import {
 import './Home.css';
 
 function User(props) {
-  const {userList, status} = props.users;
+  const {userList = [], status} = props.users;
 
   const [query, setQuery] = useState('');
 
@@ -33,46 +33,44 @@ function User(props) {
           <input type="text" onChange={updateQuery} value={query} />
         </label>
       </div>
-      <table className="user-list">
-        <thead>
-          <tr>
-            <td>name</td>
-            <td>email</td>
-            <td>city</td>
-            <td>company</td>
-          </tr>
-        </thead>
-        <tbody>
-          {(status === 'loading' && userList.length === 0) ? 'Loading' : (
-            <>
-              {userList.filter(matchQuery).map((item) => {
-                const {
-                    id,
-                    name,
-                    email,
-                    company: {
-                      name: companyName,
-                    } = {},
-                    address: {
-                      city,
-                    }
-                  } = item;
+      {(status === 'loading' && userList.length === 0) ? <p>Loading</p> : (
+        <table className="user-list">
+          <thead>
+            <tr>
+              <td>name</td>
+              <td>email</td>
+              <td>city</td>
+              <td>company</td>
+            </tr>
+          </thead>
+          <tbody>
+            {userList.filter(matchQuery).map((item) => {
+              const {
+                id,
+                name,
+                email,
+                company: {
+                  name: companyName,
+                } = {},
+                address: {
+                  city,
+                }
+              } = item;
 
-                  return (
-                    <tr onClick={(e) => handleClick(e, id)} key={name}>
-                      <td>{name}</td>
-                      <td>{email}</td>
-                      <td>{city}</td>
-                      <td>{companyName}</td>
-                    </tr>
-                  )
-                })}
-            </>
-          )}
-        </tbody>
-      </table>
+              return (
+                <tr onClick={(e) => handleClick(e, id)} key={name}>
+                  <td>{name}</td>
+                  <td>{email}</td>
+                  <td>{city}</td>
+                  <td>{companyName}</td>
+                </tr>
+              )})}
+          </tbody>
+        </table>
+      )}
     </>
   );
 }
+
 
 export default User;

@@ -28,37 +28,31 @@ function Posts(props) {
       { selectedUser && (
         <>
           <h1>Posts from {selectedUser.name}</h1>
-          <table>
-            <thead>
-              <tr>
-                <td>Title</td>
-                <td>Body</td>
-              </tr>
-            </thead>
-            <tbody>
-              {(status === 'loading' && userPosts.length === 0) ? 'Loading' : (
-                <>
-                  {userPosts.map((item) => {
-                    const {
-                      title,
-                      body
-                      } = item;
+          {(status === 'loading' && userPosts.length === 0) ? <p>Loading</p> : (
+            <table>
+              <thead>
+                <tr>
+                  <td>Title</td>
+                  <td>Body</td>
+                </tr>
+              </thead>
+              <tbody>
+                {userPosts.map((item) => {
+                  const {
+                    title,
+                    body
+                  } = item;
 
-                      return (
-                        <tr key={title}>
-                          <td>{title}</td>
-                          <td>{body}</td>
-                        </tr>
-                      )
-                    })}
-                </>
-              )}
-            </tbody>
-          </table>
-        </>
-      )}
-    </div>
-  );
-}
+                  return (
+                    <tr key={title}>
+                      <td>{title}</td>
+                      <td>{body}</td>
+                    </tr>
+                  )})}
+              </tbody>
+            </table>)}
+        </>)}
+    </div>)
+};
 
 export default Posts;
